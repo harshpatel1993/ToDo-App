@@ -1,5 +1,7 @@
 write
 read
-prepare
-Master Python
-Master Python
+Work
+Master SSIS
+No todo
+example
+UPdated todo list
