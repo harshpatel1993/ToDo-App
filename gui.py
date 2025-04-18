@@ -3,18 +3,20 @@ import functions
 import FreeSimpleGUI as sg
 import time
 
-sg.theme("green")
+sg.theme("black")
 
 clock_label = sg.Text("", key ="clock")
 label = sg.Text("Type in a To-Do")
 input_box = sg.InputText(tooltip = "Enter ToDo", key="input_todo")
-add_button = sg.Button("Add")
+add_button = sg.Button(size = 2, image_source="add.png", mouseover_colors="LightBlue2",
+                       tooltip = "Add Todo",  key = "Add")
 list_box = sg.Listbox(values = functions.get_todos(),
                       key ="todos",
                       enable_events=True,
                       size=[45,10])
 edit_button = sg.Button("Edit")
-complete_button = sg.Button("Complete")
+complete_button = sg.Button(size = 2, image_source="complete.png", mouseover_colors="LightBlue2",
+                       tooltip = "Complete Todo",  key = "Complete")
 exit_button = sg.Button("Exit")
 
 window = sg.Window("My To-Do App",
@@ -30,12 +32,15 @@ while True:
 
     match event:
         case "Add":
-            todos = functions.get_todos()
-            new_todo = values["input_todo"] +"\n"
-            todos.append(new_todo)
-            functions.write_todos(todos)
-            window["todos"].update(values=todos)
-            window["input_todo"].update("")
+            if values["input_todo"] == "":
+                sg.popup("No ToDo to Enter.",font=("Helvetica",15))
+            else:
+                todos = functions.get_todos()
+                new_todo = values["input_todo"] +"\n"
+                todos.append(new_todo)
+                functions.write_todos(todos)
+                window["todos"].update(values=todos)
+                window["input_todo"].update("")
 
         case "Edit":
             try:
